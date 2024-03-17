@@ -1,0 +1,66 @@
+text {
+    font-family: "Jua";
+ }
+ 
+ 
+ header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    background-color: #FCF7DE;
+ }
+ 
+ 
+ h1 {
+    margin: 0;
+ }
+
+ 
+ .navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: #F0DEFD;
+ }
+ 
+ 
+ .nav-menu {
+    display: flex;
+    align-items: center;
+ }
+ 
+ 
+ .nav-menu .button {
+   display: inline-block;
+   padding: 8px 12px;
+   margin: 0 5px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   text-decoration: none;
+   color: #333;
+   background-color: transparent; 
+   transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-menu .button:hover {
+   background-color: #ddd;
+   color: #000;
+}
+
+ 
+ 
+ main {
+    text-align: center;
+ }
+
+ .form-field {
+   margin-bottom: 20px; /* Add margin bottom to create space between form fields */
+}
+
+.form-field label {
+   display: block; /* Ensure labels are displayed as block elements to stack them vertically */
+}
+
+ 
