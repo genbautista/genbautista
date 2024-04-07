@@ -41,13 +41,13 @@ export default class Calendar extends Component {
                     <div className="tools">
                         <button onClick={this.previousDay}>
                             <span className="material-icons">
-                                arrow_back
+                                arrow back
                             </span>
                         </button>
                         <p>{this.months[this.state.currentDay.getMonth()].substring(0, 3)} {this.state.currentDay.getDate()}</p>
                         <button onClick={this.nextDay}>
                             <span className="material-icons">
-                                arrow_forward
+                                arrow forward
                             </span>
                         </button>
                     </div>
