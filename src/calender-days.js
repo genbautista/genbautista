@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import './calender.css';
-//import { firestore } from "../firebase.js";
-//import { addDoc, collection } from "@firebase/firestore";
 
 function CalendarDays(props) {
     const firstDayOfMonth = new Date(props.day.getFullYear(), props.day.getMonth(), 1);
     const weekdayOfFirstDay = firstDayOfMonth.getDay();
     let currentDays = [];
-    //const ref = collection(firestore, "calendarInfo")
 
     for (let day = 0; day < 42; day++) {
         if (day === 0 && weekdayOfFirstDay === 0) {
@@ -47,8 +44,8 @@ function CalendarDays(props) {
                     <p>{day.number}</p>
                     <input
                         type="text" 
-                        name={`input_${day.date.getDate()}`}
-                        value={inputValues[`input_${day.date.getDate()}`] || ''}
+                        name={`input_${day.date.getDate()}_${day.date.getMonth() + 1}_${day.date.getFullYear()}`}
+                        value={inputValues[`input_${day.date.getDate()}_${day.date.getMonth() + 1}_${day.date.getFullYear()}`] || ''}
                         onChange={(e) => handleInputChange(e, day)}
                     />
                 </div>
