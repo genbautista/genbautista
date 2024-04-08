@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import './homepage.css';
+import { firestore } from "../firebase.js";
+import { addDoc, collection } from "@firebase/firestore";
 
 const ShoppingHabitsForm = () => {
+    const messageRef = useRef();
+    const ref = collection(firestore, "shoppingHabits");
+
     const [inputValues, setInputValues] = useState({
         itemsPurchased: "",
         shoppingFrequency: "",
@@ -15,10 +20,22 @@ const ShoppingHabitsForm = () => {
         setInputValues({ ...inputValues, [name]: value });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form submitted with values:", inputValues);
-        setSubmitted(true);
+        console.log(inputValues);
+
+        const data = {
+            itemsPurchased: inputValues.itemsPurchased,
+            shoppingFrequency: inputValues.shoppingFrequency,
+            monthlySpending: inputValues.monthlySpending,
+            areasToImprove: inputValues.areasToImprove
+        };
+
+        try {
+            addDoc(ref, data);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
