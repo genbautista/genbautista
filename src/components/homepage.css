@@ -11,12 +11,10 @@ text {
     background-color: #FCF7DE;
  }
  
- 
  h1 {
     margin: 0;
  }
 
- 
  .navigation {
     display: flex;
     align-items: center;
@@ -49,8 +47,6 @@ text {
    color: #000;
 }
 
- 
- 
  main {
     text-align: center;
  }
@@ -62,5 +58,4 @@ text {
 .form-field label {
    display: block; /* Ensure labels are displayed as block elements to stack them vertically */
 }
-
  
