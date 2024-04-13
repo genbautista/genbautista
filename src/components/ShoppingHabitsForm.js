@@ -1,10 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState} from "react";
 import './homepage.css';
 import { firestore } from "../firebase.js";
 import { addDoc, collection } from "@firebase/firestore";
 
-const ShoppingHabitsForm = () => {
-    const messageRef = useRef();
+const ShoppingHabitsForm = ({ updateProgress }) => {
     const ref = collection(firestore, "shoppingHabits");
 
     const [inputValues, setInputValues] = useState({
@@ -32,7 +31,9 @@ const ShoppingHabitsForm = () => {
         };
 
         try {
-            addDoc(ref, data);
+            await addDoc(ref, data);
+            setSubmitted(true);
+            updateProgress(data); 
         } catch (error) {
             console.log(error);
         }
@@ -82,7 +83,7 @@ const ShoppingHabitsForm = () => {
                             name="areasToImprove"
                             value={inputValues.areasToImprove}
                             onChange={handleChange}
-                            placeholder="e.g., reducing impulse purchases, sticking to a budget"
+                            placeholder="e.g., what budget do you want to stick to?"
                             rows={5}
                             cols={50}
                         />
