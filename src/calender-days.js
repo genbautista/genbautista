@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './calender.css';
+import { firestore } from "./firebase.js";
+import { addDoc, collection } from "@firebase/firestore";
 
 function CalendarDays(props) {
     const firstDayOfMonth = new Date(props.day.getFullYear(), props.day.getMonth(), 1);
@@ -27,11 +29,21 @@ function CalendarDays(props) {
         currentDays.push(calendarDay);
     }
 
-    const [inputValues, setInputValues] = useState({});
+    const handleInputChange = async (e, day) => {
+        const { value } = e.target;
+        const docRef = collection(firestore, "calendarInfo");
+        const docData = {
+            day: day.number,
+            month: day.month + 1,
+            year: day.year,
+            input: value
+        };
 
-    const handleInputChange = (e, day) => {
-        const { name, value } = e.target;
-        setInputValues({ ...inputValues, [name]: value });
+        try {
+            await addDoc(docRef, docData);
+        } catch (error) {
+            console.error("Error adding document: ", error);
+        }
     };
 
     return (
@@ -44,8 +56,7 @@ function CalendarDays(props) {
                     <p>{day.number}</p>
                     <input
                         type="text" 
-                        name={`input_${day.date.getDate()}_${day.date.getMonth() + 1}_${day.date.getFullYear()}`}
-                        value={inputValues[`input_${day.date.getDate()}_${day.date.getMonth() + 1}_${day.date.getFullYear()}`] || ''}
+                        value={day.input}
                         onChange={(e) => handleInputChange(e, day)}
                     />
                 </div>
