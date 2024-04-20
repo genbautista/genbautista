@@ -1,46 +1,41 @@
-*{
+* {
    margin: 0;
+   padding: 0;
    box-sizing: border-box;
 }
 
-text {
-    font-family: "Jua";
- }
- 
- body {
+.container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+header {
+   width: 100%;
+   background-color: #FCF7DE;
+   padding: 30px;
+   text-align: center;
+}
+
+h1 {
+   margin: 0;
+   font-family: "Jua";
+}
+
+.navigation {
+   width: 100%;
+   background-color: #F0DEFD;
    display: flex;
    justify-content: center;
-   align-items: center;
- }
- 
- header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100px;
-    background-color: #FCF7DE;
- }
- 
- h1 {
-    margin: 0;
- }
+   padding: 10px 0;
+}
 
- .navigation {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    background-color: #F0DEFD;
- }
- 
- 
- .nav-menu {
-    display: flex;
-    align-items: center;
- }
- 
- 
- .nav-menu .button {
+.nav-menu {
+   display: flex;
+   align-items: center;
+}
+
+.nav-menu .button {
    display: inline-block;
    padding: 8px 12px;
    margin: 0 5px;
@@ -48,7 +43,7 @@ text {
    border-radius: 5px;
    text-decoration: none;
    color: #333;
-   background-color: transparent; 
+   background-color: transparent;
    transition: background-color 0.3s, color 0.3s;
 }
 
@@ -57,50 +52,21 @@ text {
    color: #000;
 }
 
- main {
-    text-align: center;
- }
+main {
+   text-align: center;
+   width: 100%; 
+   padding: 20px; 
+}
 
- .form-field {
-   margin-bottom: 20px; 
+.form-field {
+  margin-bottom: 20px; 
 }
 
 .form-field label {
-   display: block; 
+  display: block; 
 }
 
-.container {
-   width: 200px;
-   margin: 0 auto; 
-   border-radius: 10px;
-   background-color: #e6e6e6;
-   margin-top: 100px;
-   margin-bottom: 10px;
-}
-
-.progress-bar {
-   height: 20px;
-   background-color: #ccc;
-   border-radius: 10px;
-   overflow: hidden;
-}
-
-.progress-bar-fill {
-   height: 100%;
-   border-radius: 10px;
-   transition: width 0.5s ease-out;
-}
-
-.progress-label {
-   margin-top: 10px;
-   font-size: 24px;
-   font-weight: bold;
-   color: black;
-   text-align: center;
-}
-
-.button-container {
-   display: flex;
-   justify-content: space-around;
-   margin-top: 20px;
+.info{
+   margin-top: 10%;
+   margin-bottom: 5%;
 }
