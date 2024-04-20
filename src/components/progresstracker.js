@@ -1,58 +1,58 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import './homepage.css';
-import './ShoppingHabitsForm';
 import bannerImage from './banner.jpeg';
 import { collection, getDocs } from 'firebase/firestore';
-import { firestore } from '../firebase'; 
+import { firestore } from '../firebase';
 
-export const ProgressBar = ({ updateProgress }) => {
-    const [monthlySpending, setMonthlySpending] = useState(0); 
-    const [areasToImprove, setAreasToImprove] = useState(""); 
-    const [progress, setProgress] = useState(0); 
+const ProgressTracker = () => {
+    const [monthlySpending, setMonthlySpending] = useState(""); // Initialize as null or empty string
+    const [areasToImprove, setAreasToImprove] = useState("");
+    const [progress, setProgress] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 // Fetch spending data from Firestore
-                const spendingSnapshot = await getDocs(collection(firestore, 'spending'));
-                const spendingData = spendingSnapshot.docs.map(doc => doc.data().amount);
+                const spendingSnapshot = await getDocs(collection(firestore, 'shoppingHabits'));
+                const spendingData = spendingSnapshot.docs.map(doc => doc.data().monthlySpending);
                 // Calculate total monthly spending by summing up all spending amounts
-                const totalMonthlySpending = spendingData.reduce((acc, cur) => acc + cur, 0);
-                console.log("Monthly Spending:", totalMonthlySpending);
+                const totalMonthlySpending = spendingData.reduce((acc, cur) => acc + cur);
+                console.log("Monthly Spending from Firestore:", totalMonthlySpending);
                 setMonthlySpending(totalMonthlySpending);
     
-                // Fetch areas to improve data from Firestore
+                // Fetch areas to improve data from Firestore (replace 'areasToImprove' with the correct collection name)
                 const areasToImproveSnapshot = await getDocs(collection(firestore, 'areasToImprove'));
-                const areasToImproveData = areasToImproveSnapshot.docs.map(doc => doc.data().content);
-                console.log("Areas to Improve:", areasToImproveData);
-                setAreasToImprove(areasToImproveData.join(", ")); 
+                const areasToImproveData = areasToImproveSnapshot.docs.map(doc => doc.data());
+                console.log("Areas to Improve from Firestore:", areasToImproveData);
+    
+                setAreasToImprove(areasToImproveData.map(item => item.content).join(", "));
             } catch (error) {
                 console.log(error)
             }
         };
     
         fetchData();
-    }, []);    
+    }, []);
 
     useEffect(() => {
         // Calculate progress based on monthly spending
-        const calculatedProgress = Math.min((monthlySpending / 1000) * 100, 100); 
+        const calculatedProgress = Math.min((monthlySpending / 1000) * 100, 100);
         console.log("Progress:", calculatedProgress);
         setProgress(calculatedProgress);
-    }, [monthlySpending, areasToImprove]);    
+    }, [monthlySpending, areasToImprove]);
 
     const handleButtonClick = () => {
         if (progress < 100) {
-            const newProgress = Math.min(progress + 10, 100); 
+            const newProgress = Math.min(progress + 10, 100);
             setProgress(newProgress);
-            updateProgress(newProgress); 
+            // Implement any logic you need for updating progress
         }
-    };    
+    };
 
     const handleButtonReset = () => {
         setProgress(0);
-        updateProgress(0);
+        // Implement any logic you need for resetting progress
     };
 
     const getColor = () => {
@@ -86,12 +86,12 @@ export const ProgressBar = ({ updateProgress }) => {
 
             <div className="info">
                 <p>This is your monthly spending: {monthlySpending}</p>
-                <p>Areas to improve: {areasToImprove}</p>
+                <p>This is your areas to improve: {areasToImprove}</p>
             </div>
 
             <div className="container">
                 <div className="progress-bar">
-                <div className="progress-bar-fill" style={{ width: `${progress}%`, backgroundColor: getColor() }}></div>
+                    <div className="progress-bar-fill" style={{ width: `${progress}%`, backgroundColor: getColor() }}></div>
                 </div>
                 <div className="progress-label">
                     {progress}%
@@ -102,3 +102,5 @@ export const ProgressBar = ({ updateProgress }) => {
         </div>
     );
 };
+
+export default ProgressTracker;
