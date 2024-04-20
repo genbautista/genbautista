@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom'; // Import Link component
+import { Link } from 'react-router-dom';
 import './homepage.css';
 import bannerImage from './banner.jpeg';
 import ShoppingHabitsForm from './ShoppingHabitsForm.js';
@@ -12,8 +12,8 @@ const HomePage = () => {
    }
 
    return (
-       <div>
-           <img src={bannerImage} alt="banner" width="1425" height="200" />
+       <div className="container">
+           <img src={bannerImage} alt="banner" width="100%" height="250" />
            <header>
                <h1>Wallet Warden</h1>
            </header>
@@ -23,13 +23,11 @@ const HomePage = () => {
                    <span className="line"></span>
                    <span className="line"></span>
                    <span className="line"></span>
-                   <span className="line"></span>
                </div>
-               <div className="nav-menu hide">
+               <div className="nav-menu">
                    <Link to="/" className="button">Home</Link>
                    <Link to="/progress" className="button">Progress Tracker</Link>
                    <button onClick={handleGoalSettingClick} className="button">Goal Setting/Report Spendings</button>
-                   <a href="#" className="button">Budget Management</a>
                </div>
            </nav>
            <main>
