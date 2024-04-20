@@ -40,6 +40,11 @@
   background-color: #f0f0f0; 
 }
 
+.tools button img {
+  width: 24px;
+  height: 24px;
+}
+
 .calendar-body {
   flex-grow: 1;
   display: flex;
