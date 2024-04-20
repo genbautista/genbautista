@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import CalendarDays from './calender-days';
 import './calender.css';
+import arrowback from './arrowback.jpeg';
+import arrowforward from './arrowforward.webp';
 
 export default class Calendar extends Component {
     constructor() {
@@ -40,15 +42,11 @@ export default class Calendar extends Component {
                     </div>
                     <div className="tools">
                         <button onClick={this.previousDay}>
-                            <span className="material-icons">
-                                arrow back
-                            </span>
+                            <img src={arrowback} alt="Previous day" />{}
                         </button>
                         <p>{this.months[this.state.currentDay.getMonth()].substring(0, 3)} {this.state.currentDay.getDate()}</p>
                         <button onClick={this.nextDay}>
-                            <span className="material-icons">
-                                arrow forward
-                            </span>
+                            <img src={arrowforward} alt="Next day" />{}
                         </button>
                     </div>
                 </div>
