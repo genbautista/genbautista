@@ -22,18 +22,18 @@ const ShoppingHabitsForm = ({ updateProgress }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(inputValues);
-
+    
         const data = {
             itemsPurchased: inputValues.itemsPurchased,
             shoppingFrequency: inputValues.shoppingFrequency,
             monthlySpending: inputValues.monthlySpending,
             areasToImprove: inputValues.areasToImprove
         };
-
+    
         try {
             await addDoc(ref, data);
             setSubmitted(true);
-            updateProgress(data); 
+            updateProgress(data.monthlySpending, data.areasToImprove); // Update progress with monthly spending and areas to improve
         } catch (error) {
             console.log(error);
         }
@@ -44,7 +44,7 @@ const ShoppingHabitsForm = ({ updateProgress }) => {
             {!submitted ? (
                 <form onSubmit={handleSubmit}>
                     <div className="form-field">
-                        <label htmlFor="itemsPurchased">Types of items frequently purchased:</label>
+                        <label htmlFor="itemsPurchased">Money spend on items this month:</label>
                         <input
                             type="text"
                             id="itemsPurchased"
@@ -55,7 +55,7 @@ const ShoppingHabitsForm = ({ updateProgress }) => {
                         />
                     </div>
                     <div className="form-field">
-                        <label htmlFor="shoppingFrequency">Frequency of shopping trips:</label>
+                        <label htmlFor="shoppingFrequency">Money spend on shopping this month:</label>
                         <input
                             type="text"
                             id="shoppingFrequency"
@@ -66,7 +66,7 @@ const ShoppingHabitsForm = ({ updateProgress }) => {
                         />
                     </div>
                     <div className="form-field">
-                        <label htmlFor="monthlySpending">Amount spent on shopping per month:</label>
+                        <label htmlFor="monthlySpending">Amount spent on food this month:</label>
                         <input
                             type="text"
                             id="monthlySpending"
@@ -77,13 +77,13 @@ const ShoppingHabitsForm = ({ updateProgress }) => {
                         />
                     </div>
                     <div className="form-field">
-                        <label htmlFor="areasToImprove">Specific areas to improve:</label>
+                        <label htmlFor="areasToImprove">What budget are you set on?:</label>
                         <textarea
                             id="areasToImprove"
                             name="areasToImprove"
                             value={inputValues.areasToImprove}
                             onChange={handleChange}
-                            placeholder="e.g., what budget do you want to stick to?"
+                            placeholder="e.g., $400, $500?"
                             rows={5}
                             cols={50}
                         />
