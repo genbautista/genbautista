@@ -11,7 +11,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<HomePageWithCalendar />} />
-          {/* Use ProgressTracker component instead of ProgressBar */}
+          {}
           <Route path="/progress" element={<ProgressTracker />} />
         </Routes>
       </Router>
