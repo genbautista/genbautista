@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './components/homepage';
 import Calendar from './Calender'; 
 import './App.css';
-import ProgressTracker from './components/progresstracker'; // Import ProgressTracker component
+import ProgressTracker from './components/progresstracker'; 
 
 function App() {
   return (
