@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import './homepage.css';
 import { firestore } from "../firebase.js";
 import { addDoc, collection } from "@firebase/firestore";
@@ -23,21 +23,28 @@ const ShoppingHabitsForm = ({ updateProgress }) => {
         e.preventDefault();
         console.log(inputValues);
     
+        // Convert areasToImprove to a float number
+        const areasToImproveNumber = parseFloat(inputValues.areasToImprove);
+    
+        // Convert monthlySpending to a float number
+        const monthlySpendingNumber = parseFloat(inputValues.monthlySpending);
+    
         const data = {
             itemsPurchased: inputValues.itemsPurchased,
             shoppingFrequency: inputValues.shoppingFrequency,
-            monthlySpending: inputValues.monthlySpending,
-            areasToImprove: inputValues.areasToImprove
+            monthlySpending: monthlySpendingNumber,
+            areasToImprove: areasToImproveNumber
         };
     
         try {
             await addDoc(ref, data);
             setSubmitted(true);
-            updateProgress(data.monthlySpending, data.areasToImprove); // Update progress with monthly spending and areas to improve
+            // Update areasToImprove state in the parent component using the updateProgress function
+            updateProgress(monthlySpendingNumber, areasToImproveNumber); // Update progress with monthly spending and areas to improve
         } catch (error) {
             console.log(error);
         }
-    }
+    }    
 
     return (
         <div>
@@ -55,7 +62,7 @@ const ShoppingHabitsForm = ({ updateProgress }) => {
                         />
                     </div>
                     <div className="form-field">
-                        <label htmlFor="shoppingFrequency">Money spend on shopping this month:</label>
+                        <label htmlFor="shoppingFrequency">How often do you spend on shopping this month?:</label>
                         <input
                             type="text"
                             id="shoppingFrequency"
