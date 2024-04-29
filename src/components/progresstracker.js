@@ -6,53 +6,48 @@ import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase';
 
 const ProgressTracker = () => {
-    const [monthlySpending, setMonthlySpending] = useState(""); // Initialize as null or empty string
+    const [monthlySpending, setMonthlySpending] = useState("");
     const [areasToImprove, setAreasToImprove] = useState("");
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Fetch spending data from Firestore
+
                 const spendingSnapshot = await getDocs(collection(firestore, 'shoppingHabits'));
                 const spendingData = spendingSnapshot.docs.map(doc => doc.data().monthlySpending);
-                // Calculate total monthly spending by summing up all spending amounts
+
                 const totalMonthlySpending = spendingData.reduce((acc, cur) => acc + cur);
                 console.log("Monthly Spending from Firestore:", totalMonthlySpending);
                 setMonthlySpending(totalMonthlySpending);
-    
-                // Fetch areas to improve data from Firestore (replace 'areasToImprove' with the correct collection name)
-                const areasToImproveSnapshot = await getDocs(collection(firestore, 'areasToImprove'));
-                const areasToImproveData = areasToImproveSnapshot.docs.map(doc => doc.data());
+
+
+                const areasToImproveData = spendingSnapshot.docs.map(doc => doc.data().areasToImprove);
                 console.log("Areas to Improve from Firestore:", areasToImproveData);
-    
-                setAreasToImprove(areasToImproveData.map(item => item.content).join(", "));
+
+
+                const latestAreasToImprove = areasToImproveData[areasToImproveData.length - 1];
+
+
+                setAreasToImprove(latestAreasToImprove);
             } catch (error) {
                 console.log(error)
             }
         };
-    
+
         fetchData();
     }, []);
-
-    useEffect(() => {
-        // Calculate progress based on monthly spending
-        const calculatedProgress = Math.min((monthlySpending / 1000) * 100, 100);
-        console.log("Progress:", calculatedProgress);
-        setProgress(calculatedProgress);
-    }, [monthlySpending, areasToImprove]);
 
     const handleButtonClick = () => {
         if (progress < 100) {
             const newProgress = Math.min(progress + 10, 100);
             setProgress(newProgress);
-            // Implement any logic you need for updating progress
+
         }
     };
 
     const handleButtonReset = () => {
         setProgress(0);
-        // Implement any logic you need for resetting progress
     };
 
     const getColor = () => {
@@ -85,14 +80,15 @@ const ProgressTracker = () => {
             </nav>
 
             <div className="info">
-                <p>This is your monthly spending: {monthlySpending}</p>
-                <p>This is your areas to improve: {areasToImprove}</p>
+                <p>This is your monthly spending: ${monthlySpending}</p>
+                <p>This is your budget: ${areasToImprove}</p>
             </div>
 
             <div className="container">
                 <div className="progress-bar">
                     <div className="progress-bar-fill" style={{ width: `${progress}%`, backgroundColor: getColor() }}></div>
                 </div>
+
                 <div className="progress-label">
                     {progress}%
                 </div>
